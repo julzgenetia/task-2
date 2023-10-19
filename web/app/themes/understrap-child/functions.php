@@ -41,4 +41,17 @@
 		return substr( $excerpt, 0, 30 ) . '<p><a class="btn btn-secondary understrap-read-more-link" href="' . get_the_permalink() . '">Read More…<span class="screen-reader-text"> from Hello world!</span></a></p>';
 	}
 	add_filter( 'get_the_excerpt', 'sf_limit_excerpt' );
+
+	//Remove Uploaded Media Files Once Post is Deleted
+	/* Notes: Need the post to be permanently deleted. Affected media files are the ones which are uploaded to the Featured Image and Post Editor.*/ 
+	function sf_removed_uploaded_media( $post_id ) {
+		if( get_post_type($post_id) == "post" ) {
+			$attachments = get_attached_media( '', $post_id );
+
+			foreach ($attachments as $attachment) {
+			wp_delete_attachment( $attachment->ID, 'true' );
+			}
+		}
+	}
+	add_action( 'before_delete_post', 'sf_removed_uploaded_media' );
  ?>

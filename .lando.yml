@@ -1,0 +1,11 @@
+name: task-2
+recipe: wordpress
+config: 
+  webroot: web 
+  php: '8.0' 
+  via: nginx 
+  xdebug: true 
+services: 
+  php: 
+    type: 'php:8.0' 
+    via: nginx 

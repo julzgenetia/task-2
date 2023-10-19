@@ -35,4 +35,10 @@
 			remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
 		}
 	});
+
+	//Limit the Excerpt Length to 30 Characters
+	function sf_limit_excerpt( $excerpt ) {
+		return substr( $excerpt, 0, 30 ) . '<p><a class="btn btn-secondary understrap-read-more-link" href="' . get_the_permalink() . '">Read More…<span class="screen-reader-text"> from Hello world!</span></a></p>';
+	}
+	add_filter( 'get_the_excerpt', 'sf_limit_excerpt' );
  ?>
